@@ -1,6 +1,5 @@
-import CartItem from "../../components/cart-item/cart-item.component";
 import { cartTypes } from "./cart.types";
-import { addItemToCart } from "./cart.utils";
+import { addItemToCart, increamentItem, decreamentItem } from "./cart.utils";
 const INITIAL_STATE = {
   hidden: true,
   cartItems: [],
@@ -23,6 +22,16 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         cartItems: state.cartItems.filter(
           (cartItem) => cartItem.id !== action.payload.id
         ),
+      };
+    case cartTypes.INCREAMENT_ITEM:
+      return {
+        ...state,
+        cartItems: increamentItem(state.cartItems, action.payload),
+      };
+    case cartTypes.DECREAMENT_ITEM:
+      return {
+        ...state,
+        cartItems: decreamentItem(state.cartItems, action.payload),
       };
     default:
       return state;
